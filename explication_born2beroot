@@ -30,19 +30,19 @@ Afficher partition :
 - lsblk
 - LVM permet de gérer les partitions de disque, permettant aux administrateurs de modifier, redimensionner et gérer les systèmes de fichiers
 
-
+Ajouter au groupe un utilisateur :
+- sudo adduser <login> permet de creer un utilisateur additionel
+- sudo adduser dlefur user42 inclut un utilisateur dans les groupes sudo et user42
+- getent group sudo et getent group user42 permet de verifier si les groupes sudo et user42 sont present avec notre utilisateur
 
 - Le début de l'installation commence par changer l'utilisateur en root afin que nous puissions installer le sudo
 - Installation sudo avec apt install sudo
 - sudo reboot permet de redemarrer la machine
 - sudo -V permet de montrer les infos sudo
 - su permet de passer en root dlefur42
-- sudo adduser <login> permet de creer un utilisateur additionel
+
 - sudo addgroup user42 permet de creer un groupe appeler user42
 - GID est l'identifiant du groupe
-- sudo adduser dlefur user42 inclut un utilisateur dans les groupes sudo et user42
-- getent group sudo et getent group user42 permet de verifier si les groupes sudo et user42 sont present avec notre utilisateur
-partition lsblk
 
 grep :
 - permet de rechercher des informations precise dans des fichiers
