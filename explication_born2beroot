@@ -13,12 +13,12 @@ Rocky :
 
 Difference apt et aptitude :
 - les deux commandes sont pratiquement similaire sauf que :
-- apt : ne propose pas de solution alternative en cas d erreur d'installation des paquets
+- apt : ne propose pas de solution alternative en cas d'erreur d'installation des paquets
 - aptitude : offre une interface semi-graphique dans le terminal et offre des solutions en cas de conflit
 
 APPAarmor :
 - restreint les acces aux chemins dans le systeme de fichier, 
-il contrôle précisément quelles applications peuvent accéder à quels fichiers ou répertoires
+  il contrôle précisément quelles applications peuvent accéder à quels fichiers ou répertoires
 
 ------------------------------------------------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ Ajouter au groupe un utilisateur :
 ------------------------------------------------------------------------------------------------------------------
 
 Installation et configuration de SSH
--  L'acronyme SSH signifie Secure Shell permet de communiquer via un canal securiser entre deux ordinateurs,
+-  L'acronyme SSH signifie Secure Shell permet de communiquer via un canal securiser entre deux ordinateurs, 
    entre un client  et un serveur, les donnees ne peuvent pas etre lues par des tiers
 - sudo apt update permet de mettre a jour le systeme
 - sudo apt install openssh-server est l'outil principal pour l'acces a distance avec le protocole SSH
@@ -106,7 +106,8 @@ Editer un mdp fort
 - pass_max_day est le jour max jusqu'a l'expiration du mot de passe
 - pass_min_day nombre minimum de jours avant de pouvoir changer le mot de passe
 - pass_warn_age nombre de jours d'avertissement avant l'expiration du mot de passe
-- sudo apt install libpam-pwquality permet d utiliser des paquets pour definir des regles stricte dans le mdp, par exemple longueur min mdp, chiffre et majuscule, mdp trop simple, mdp similaire
+- sudo apt install libpam-pwquality permet d utiliser des paquets pour definir des regles stricte dans le mdp, 
+  par exemple longueur min mdp, chiffre et majuscule, mdp trop simple, mdp similaire
 
 minlen=10
 ucredit=-1
@@ -124,7 +125,8 @@ ligne 4 : le mot de passe doit au moins contenir une lettre minuscule.
 ligne 5 : le mdp ne doit pas contenir 3 fois le meme caractere 
 ligne 6 : le mdp ne doit pas contenir le nom de l'utilisateur
 ligne 7 : le mot de passe qu'il doit contenir au moins sept caractères diférent du dernier mot de passe usé.
-ligne 8 : l’option enforce_for_root permet d'appliquer strictement les règles de sécurité des mots de passe configurées pour tous les utilisateurs, y compris root
+ligne 8 : l’option enforce_for_root permet d'appliquer strictement les règles de sécurité des mots de passe configurées 
+          pour tous les utilisateurs, y compris root
 
 - modifier les caracteristique du dessus pour l'utilisateur root
 - sudo chage -l <username>pour vérifier le mot de passe de l'utilisateur de root et de login
@@ -136,7 +138,8 @@ Script
 grep :
 - permet de rechercher des informations precise dans des fichiers
 awk :
--  est un langage de programmation principalement utilisé pour traiter et manipuler du texte et des fichiers structurés en lignes et colonnes
+-  langage de programmation principalement utilisé pour traiter 
+   et manipuler du texte et des fichiers structurés en lignes et colonnes
 TCP :
 - garantit que les données sont transmises dans le bon ordre et sans pertes
 df : 
@@ -145,30 +148,48 @@ grep -v
 - pour exclure les ligne contenant /boot
 
 - uname -a cette commande permet d'imprimer toutes les informations, sauf si le CPU n'est pas connu
+
 - grep "physical id" /proc/cpinfo, cette partie recherche toutes les lignes contenant la chaîne "physical id" dans le fichier /proc/cpuinfo
-chaque ligne "physical id" représente un processeur physique unique.
+  chaque ligne "physical id" représente un processeur physique unique.
+
 - grep "processor" /proc/cpuinfo | wc -l pour le processeur
+
 - free permet de montrer la memoire ram
+
 - free --mega | awk '$1 == "Mem:" {print $3}' permet d'afficher la memoire utiliser
+
 - free --mega | awk '$1 == "Mem:" {print $2} permet d'obtenir la memoire totale
+
 - free --mega | awk '$1 == "Mem:" {printf("(%.2f%%)\n", $3/$2*100)}' permet d'imprimer le pourcentage de ram utiliser
+
 - df -m | grep "/dev/" | grep -v "/boot" | awk '{memory_use += $3} END {print memory_use}' permet de visualiser la memoire occuper et dispo du disque
-- df -m | grep "/dev/" | grep -v "/boot" | awk '{use += $3} {total += $2} END {printf("(%d%%)\n"), use/total*100}' combiner deux commande, un pour la memoire utiliser et un pour la memoire totale pour obtenir le pourcentage
-- vmstat 1 4 | tail -1 | awk '{print $15}' permet de voir le pourcentage d'utilisation 
-1 4 : seconde intervalle
-tail -1 imprime la sortie de la derniere ligne
-print 15 affiche que le mot 15 qui est l'utilisation de la memoire disponible
+
+- df -m | grep "/dev/" | grep -v "/boot" | awk '{use += $3} {total += $2} END {printf("(%d%%)\n"), use/total*100}' combiner deux commande,
+  un pour la memoire utiliser et un pour la memoire totale pour obtenir le pourcentage
+
+- vmstat 1 4 | tail -1 | awk '{print $15}' permet de voir le pourcentage d'utilisation
+
 - who -b | awk '$1 == "system" {print $3 " " $4}' pour la voir la date et heure du dernier redemarrage
-- if [ $(lsblk | grep "lvm" | wc -l) -gt 0 ]; then echo yes; else echo no; fi pour vérifier si LVM est actif ou non, nous utiliserons le lsblk, une commande qui nous montre des informations sur tous les dispositifs de bloc (disques durs, SSD, mémoires, etc.) parmi toutes les informations qu'il fournit, nous pouvons voir lvm dans le type de gestionnaire. Pour cette commande, nous ferons un si parce que nous imprimerons Oui ou Non. La condition que nous recherchons sera de compter le nombre de lignes dans lesquelles "lvm" apparaît et s'il y a plus de 0 nous imprimerons Oui, s'il y a 0 nous imprimerons Non
+
+- if [ $(lsblk | grep "lvm" | wc -l) -gt 0 ]; then echo yes; else echo no; fi, pour vérifier si LVM est actif ou non, nous utiliserons le lsblk, 
+  une commande qui nous montre des informations sur tous les dispositifs de bloc (disques durs, SSD, mémoires, etc.) parmi toutes les informations qu'il fournit, 
+  nous pouvons voir lvm dans le type de gestionnaire. Pour cette commande, nous ferons un if parce que nous imprimerons Oui ou Non. 
+  La condition que nous recherchons sera de compter le nombre de lignes dans lesquelles "lvm" apparaît et
+  s'il y a plus de 0 nous imprimerons Oui, s'il y a 0 nous imprimerons Non
+
 - ss -ta | grep ESTAB | wc -l permet de voir le nbr de connexion TCP etablie et utiliser grep pour voir ceux qui sont etablie
+
 - users | wc -w permet de nous montrer les nombre d'utilisateurs
+
 - ip link | grep "link/ether" | awk '{print $2}' permet d'obtenir l'adresse ip mac
+
 - journalctl _COMM=sudo | grep COMMAND | wc -l permet d'obtenir le nbr de commande executer avec sudo
 
 ------------------------------------------------------------------------------------------------------------------
 
 Crontab :
- permet d'exécuter automatiquement des commandes ou des scripts à des moments spécifiés
+- permet d'exécuter automatiquement des commandes ou des scripts à des moments spécifiés
+
 - sudo crontab -u root -e modifie le crontab de l'utilisateur root -u, -e par defaut utilisateur courant, -e ouvrir editeur de texte
 - */10 * * * * sh /ruta del script
 */10 signifie que la tache s execute toute les 10 minutes
@@ -176,4 +197,5 @@ Crontab :
 * tache execute tous les jours du mois
 * tache execute tous les mois
 * tache execute tous les jours de la semaine
+
 le script sera exectuer toute les 10 min , chaque jour, chaque mois quelque soit le jour de la semaine
